@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+.nav-bar svg {
+  height: 25px;
+  width: fit-content;
+}
+.vs-link,
+.link-button {
+  opacity: 1;
+  transition: 200ms;
+}
+.vs-link:hover {
+  opacity: 0.9;
+}
+.link-button:hover {
+  transform: translate(1px, 1px);
+}
+/* <div class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div> */
