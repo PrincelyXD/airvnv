@@ -11,9 +11,9 @@ import Reviews from "./pages/Host/Reviews";
 import HostLayout from "./pages/Host/HostLayout";
 import HostVans from "./pages/Host/HostVans";
 import EditVanDetail from "./pages/Host/EditVanDetail";
-import Details from "./pages/Host/outlets/Details";
-import Pricing from "./pages/Host/outlets/Pricing";
-import Photos from "./pages/Host/outlets/Photos";
+import Details from "./pages/Host/EditVanDetailOutlets/Details";
+import Pricing from "./pages/Host/EditVanDetailOutlets/Pricing";
+import Photos from "./pages/Host/EditVanDetailOutlets/Photos";
 // rather than having app render components, app renders routes
 
 function App() {

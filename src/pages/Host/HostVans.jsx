@@ -18,7 +18,7 @@ function HostVans() {
     <div className=" pb-10">
       {vans.map((van) => (
         <Link
-          to={`/host/vans/${van.id}`}
+          to={`${van.id}`}
           key={van.id}
           className="w-full h-[110px] bg-white flex px-6 py-4 rounded-lg my-4"
         >

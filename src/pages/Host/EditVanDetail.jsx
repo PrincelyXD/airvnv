@@ -23,7 +23,8 @@ function EditVanDetail() {
   return (
     <div className=" py-10">
       <Link
-        to="/host/vans"
+        to=".."
+        relative="path"
         className=" text-chinese-black before:content-['<-'] before:mr-1 before:text-[#161616] mb-9 block "
       >
         {" "}

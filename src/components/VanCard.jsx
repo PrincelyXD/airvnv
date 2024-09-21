@@ -5,7 +5,7 @@ function VanCard({ name, price, image, type, id }) {
     
     <Link
       aria-label={`View details for ${name}, priced at $${price} per day`}
-      to={`/vans/${id}`}
+      to={`${id}`}
     >
       <div className=" card-div text-black w-[250px] h-[350px] rounded-t-[5px]">
         {/* <div className= {`w-full h-[75%] bg-[url('${image}')]  bg-center bg-cover rounded-[5px]`}> </div> */}

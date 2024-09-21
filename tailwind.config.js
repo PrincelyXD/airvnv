@@ -42,6 +42,10 @@ export default {
         "about-img-bg": "url('/src/assets/images/image-2bg.png')",
         "test-img": "url('/src/assets/images/test-img.png')",
       },
+
+      transitionTimingFunction:{
+        'custom-ease': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      }
     },
   },
   plugins: [],

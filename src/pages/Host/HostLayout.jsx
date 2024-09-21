@@ -43,6 +43,7 @@ function HostLayout() {
           Reviews
         </NavLink>
       </div>
+
       <Outlet />
     </div>
   );
