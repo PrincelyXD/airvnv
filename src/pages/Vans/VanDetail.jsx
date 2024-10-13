@@ -1,12 +1,15 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function VanDetail() {
   const [van, setVan] = useState(null);
-
   const { id } = useParams();
+  const location = useLocation()
+
+ const prevLinkPath = location.state?.search || ''
+const vanType = location.state?.typeOfVan || 'all'
 
   useEffect(() => {
     const fetchVanData = async () => {
@@ -16,16 +19,22 @@ function VanDetail() {
     fetchVanData();
   }, []);
 
+
+
+
+
+
+
   return (
     <div className="mx-[auto] h-fit w-[600px] bg-chinese-black font-inter text-black">
       {van ? (
         <div className="bg-body-cream px-9 pb-16">
           <Link
-            to=".."
+            to={`..?${prevLinkPath}`}
             relative="path"
             className="text-chinese-black before:mr-1 before:text-[#161616] before:content-['<-']"
           >
-            Back to all vans
+            Back to <i className=" font-bold">{vanType}</i> vans
           </Link>
 
           <div
@@ -69,5 +78,5 @@ function VanDetail() {
     </div>
   );
 }
-
+// useLocation() provides an object with useful information of the previous application state before it changes
 export default VanDetail;

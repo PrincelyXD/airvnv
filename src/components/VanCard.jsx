@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 // vancard is a link to a route  which needs van.id as an api request endpoint to get the specific van
-function VanCard({ name, price, image, type, id }) {
+function VanCard({ name, price, image, type, id, params, typeFilter }) {
   return (
     
     <Link
       aria-label={`View details for ${name}, priced at $${price} per day`}
       to={`${id}`}
+      state={{search: params,typeOfVan: typeFilter}}
     >
       <div className=" card-div text-black w-[250px] h-[350px] rounded-t-[5px]">
-        {/* <div className= {`w-full h-[75%] bg-[url('${image}')]  bg-center bg-cover rounded-[5px]`}> </div> */}
         <img className=" rounded-[5px]" src={`${image}`} alt={`image of the ${name} van`} />
         <div className=" w-full flex items-center py-2  text-chinese-black relative">
           <p className=" text-[22px] mr-auto font-semibold"> {name}</p>

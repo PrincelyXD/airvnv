@@ -14,6 +14,7 @@ import EditVanDetail from "./pages/Host/EditVanDetail";
 import Details from "./pages/Host/EditVanDetailOutlets/Details";
 import Pricing from "./pages/Host/EditVanDetailOutlets/Pricing";
 import Photos from "./pages/Host/EditVanDetailOutlets/Photos";
+import PageNotFound from "./pages/404/PageNotFound.jsx";
 // rather than having app render components, app renders routes
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
 
             <Route path="reviews" element={<Reviews />} />
           </Route>
-
+          <Route path="*" element={<PageNotFound/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

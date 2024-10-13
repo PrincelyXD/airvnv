@@ -39,15 +39,19 @@ function Vans() {
         name={van.name}
         price={van.price}
         type={van.type}
+        params= {searchParams.toString()}
+        typeFilter = {typeFilter}
+
       />
     );
   });
+
 
   return (
     <div className="bg-body-cream px-9 pb-14 text-chinese-black">
       <h1 className="text-[32px] font-bold">Explore our van options</h1>
 
-      <div className="mb-12 mt-5 flex h-[40px] w-full text-[#4D4D4D]">
+      <div className=" filter-buttons mb-12 mt-5 flex h-[40px] w-full text-[#4D4D4D]">
         <button
           onClick={() => handleFilterChange("type", "simple")}
           className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#e17654] hover:text-link-bg-cream ${typeFilter === "simple" && "bg-[#e17654] text-link-bg-cream"}`}
@@ -57,13 +61,13 @@ function Vans() {
 
         <button
           onClick={() => handleFilterChange("type", "luxury")}
-          className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#161616] hover:text-link-bg-cream ${typeFilter === "luxury" && "bg-[#161616] text-link-bg-cream"}`}
+          className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#161616] hover:text-link-bg-cream ${typeFilter === "luxury" &&  "bg-chinese-black text-link-bg-cream"}`}
         >
           Luxury
         </button>
         <button
           onClick={() => handleFilterChange("type", "rugged")}
-          className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#115e59] hover:text-link-bg-cream ${typeFilter === "rugged" && "bg-[#115e59] text-link-bg-cream"} `}
+          className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#115e59] hover:text-link-bg-cream ${typeFilter === "rugged" && "bg-bangladesh-green text-link-bg-cream"} `}
         >
           Rugged
         </button>
