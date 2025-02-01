@@ -1,89 +1,79 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useLoaderData, useParams } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
+import { getHostVans } from "../../../api";
+import { requireAuth } from "../../utils";
+
+export async function EditVanDetailLoader({ params }) {
+  await requireAuth()
+  return getHostVans(params.id);
+}
 
 function EditVanDetail() {
-  const [van, setVan] = useState(null);
-  const { id } = useParams();
-
-  useEffect(() => {
-    const fetchVan = async () => {
-      const req = await axios.get(`/api/host/vans/${id}`);
-      setVan(req.data.vans[0]);
-    };
-    fetchVan();
-  }, []);
-
+  const data = useLoaderData();
+  const van = data[0];
   const styles = {
     fontWeight: "bold",
     borderBottom: "1.5px solid",
   };
 
   return (
-    <div className=" py-10">
+    <div className="py-10">
       <Link
         to=".."
         relative="path"
-        className=" text-chinese-black before:content-['<-'] before:mr-1 before:text-[#161616] mb-9 block "
+        className="mb-9 block w-fit text-chinese-black before:mr-1 before:text-[#161616] before:content-['<-']"
       >
-        {" "}
         Back to all vans
       </Link>
 
-      {van ? (
-        <div className=" h-fit w-full  pb-5  bg-white rounded-lg">
-          <div className=" h-[210px] w-full flex px-6 py-4 ">
-            <img className="rounded-md" src={`${van.imageUrl}`} alt="oops" />
-            <div className=" flex flex-col justify-center ml-5">
-              <span
-                className={`w-fit text-link-bg-cream cursor-pointer ${van.type} py-[5px] px-4 rounded-[4px] inline-block mt-[-10px]`}
-              >
-                {van.type}
-              </span>
-
-              <h2 className="text-[28px] font-semibold py-2 ">{van.name}</h2>
-              <p className="text-[22px] font-semibold">
-                ${van.price}{" "}
-                <span className=" font-normal text-[17px]">/day</span>
-              </p>
-            </div>
-          </div>
-
-          <nav className="w-[300px] h-10 text-[17px] px-6 mb-5 flex justify-between">
-            <NavLink
-              to={`/host/vans/${id}`}
-              end
-              style={({ isActive }) => (isActive ? styles : null)}
-              className='hover:border-b-[2px] border-[#4d4d4d] py-0 h-fit'
+      <div className="h-fit w-full rounded-lg bg-white pb-5">
+        <div className="flex h-[210px] w-full px-6 py-4">
+          <img className="rounded-md" src={`${van.imageUrl}`} alt="oops" />
+          <div className="ml-5 flex flex-col justify-center">
+            <span
+              className={`w-fit cursor-pointer text-link-bg-cream ${van.type} mt-[-10px] inline-block rounded-[4px] px-4 py-[5px]`}
             >
-              Details
-            </NavLink>
+              {van.type}
+            </span>
 
-            <NavLink
-              to={`/host/vans/${id}/pricing`}
-              style={({ isActive }) => (isActive ? styles : null)}
-              className='hover:border-b-[2px] border-[#4d4d4d] py-0 h-fit'
-            >
-              Pricing
-            </NavLink>
-
-            <NavLink
-              to={`/host/vans/${id}/photos`}
-              style={({ isActive }) => (isActive ? styles : null)}
-              className='hover:border-b-[2px] border-[#4d4d4d]  py-0 h-fit'
-            >
-              Photos
-            </NavLink>
-          </nav>
-
-          <div className="px-6">
-            <Outlet context={[van]} />
+            <h2 className="py-2 text-[28px] font-semibold">{van.name}</h2>
+            <p className="text-[22px] font-semibold">
+              ${van.price} <span className="text-[17px] font-normal">/day</span>
+            </p>
           </div>
         </div>
-      ) : (
-        <h2>Loading...</h2>
-      )}
+
+        <nav className="mb-5 flex h-10 w-[300px] justify-between px-6 text-[17px]">
+          <NavLink
+            to={`.`}
+            end
+            style={({ isActive }) => (isActive ? styles : null)}
+            className="h-fit border-[#4d4d4d] py-0 hover:border-b-[2px]"
+          >
+            Details
+          </NavLink>
+
+          <NavLink
+            to="pricing"
+            style={({ isActive }) => (isActive ? styles : null)}
+            className="h-fit border-[#4d4d4d] py-0 hover:border-b-[2px]"
+          >
+            Pricing
+          </NavLink>
+
+          <NavLink
+            to="photos"
+            style={({ isActive }) => (isActive ? styles : null)}
+            className="h-fit border-[#4d4d4d] py-0 hover:border-b-[2px]"
+          >
+            Photos
+          </NavLink>
+        </nav>
+
+        <div className="px-6">
+          <Outlet context={[van]} />
+        </div>
+      </div>
     </div>
   );
 }

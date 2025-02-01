@@ -1,12 +1,24 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, redirect } from "react-router-dom";
+
+export function  hostLoader() {
+  const isLoggedIn = false
+  if (!isLoggedIn){
+    throw redirect("/login")
+  }
+  return null
+}
+
 
 function HostLayout() {
+
   const activeStyle = {
     fontWeight: "bold",
     color: "#161616",
     backgroundColor: "#FFEAD0",
     borderRadius: "5px",
   };
+
+
 
   return (
     <div className=" px-9 bg-body-cream">

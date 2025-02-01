@@ -1,57 +1,58 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import VanCard from "../../components/VanCard";
-import { NavLink, useSearchParams } from "react-router-dom";
 
-function Vans() {
-  const [vans, setVans] = useState([]);
+import VanCard from "../../components/VanCard";
+import { useSearchParams, useLoaderData } from "react-router-dom";
+import { getVans } from "../../../api";
+
+export function loader() {
+  return getVans()
+  
+}
+
+
+const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
-
-  useEffect(() => {
-    const fetchVanData = async () => {
-      const req = await axios.get("/api/vans");
-      setVans(req.data.vans);
-    };
-    fetchVanData();
-  }, []);
+const vans = useLoaderData()
 
   const handleFilterChange = (key, value) => {
     setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
       if (value === null) {
-        prevParams.delete(key);
+        newParams.delete(key);
       } else {
-        prevParams.set(key, value);
+        newParams.set(key, value);
       }
-      return prevParams;
+      return newParams;
     });
   };
+
   const displayedVans = typeFilter
     ? vans.filter((van) => van.type.toLowerCase() === typeFilter)
     : vans;
 
-  const allVans = displayedVans.map((van) => {
-    return (
-      <VanCard
-        key={van.id}
-        id={van.id}
-        image={van.imageUrl}
-        name={van.name}
-        price={van.price}
-        type={van.type}
-        params= {searchParams.toString()}
-        typeFilter = {typeFilter}
-
-      />
-    );
-  });
-
+  const allVans =(
+    displayedVans.map((van) => {
+      return (
+        <VanCard
+          key={van.id}
+          id={van.id}
+          image={van.imageUrl}
+          name={van.name}
+          price={van.price}
+          type={van.type}
+          params={searchParams.toString()}
+          typeFilter={typeFilter}
+        />
+      );
+    })
+  ) 
+  
 
   return (
     <div className="bg-body-cream px-9 pb-14 text-chinese-black">
       <h1 className="text-[32px] font-bold">Explore our van options</h1>
 
-      <div className=" filter-buttons mb-12 mt-5 flex h-[40px] w-full text-[#4D4D4D]">
+      <div className="filter-buttons mb-12 mt-5 flex h-[40px] w-full text-[#4D4D4D]">
         <button
           onClick={() => handleFilterChange("type", "simple")}
           className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#e17654] hover:text-link-bg-cream ${typeFilter === "simple" && "bg-[#e17654] text-link-bg-cream"}`}
@@ -61,7 +62,7 @@ function Vans() {
 
         <button
           onClick={() => handleFilterChange("type", "luxury")}
-          className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#161616] hover:text-link-bg-cream ${typeFilter === "luxury" &&  "bg-chinese-black text-link-bg-cream"}`}
+          className={`mr-5 rounded-md bg-[#FFEAD0] px-[25px] py-[10px] text-[16px] transition-all duration-200 ease-custom-ease hover:bg-[#161616] hover:text-link-bg-cream ${typeFilter === "luxury" && "bg-chinese-black text-link-bg-cream"}`}
         >
           Luxury
         </button>
@@ -81,9 +82,12 @@ function Vans() {
           </button>
         )}
       </div>
+
+    
+
       <div className="grid grid-cols-2 gap-[28px]">{allVans}</div>
     </div>
   );
-}
+};
 
 export default Vans;

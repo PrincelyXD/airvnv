@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { Link, useLoaderData } from "react-router-dom";
+
+import { getHostVans } from "../../../api";
+import { requireAuth } from "../../utils";
+
+
+export async function HostVansLoader(){
+     await   requireAuth()
+      return  getHostVans()
+}
 
 function HostVans() {
-  const [vans, setVans] = useState([]);
 
-  useEffect(() => {
-    const fetchVanData = async () => {
-      const req = await axios.get("/api/host/vans");
-      setVans(req.data.vans);
-    };
+  const vans = useLoaderData()
 
-    fetchVanData();
-  }, []);
 
   const vanList = (
     <div className=" pb-10">

@@ -1,33 +1,25 @@
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useLoaderData, useParams } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { getVans } from "../../../api";
+
+
+// you automatically have access to params on this loader
+export function vanDetailLoader({params}){
+const id = params.id
+ return getVans(id)
+}
 
 function VanDetail() {
-  const [van, setVan] = useState(null);
-  const { id } = useParams();
   const location = useLocation()
 
  const prevLinkPath = location.state?.search || ''
 const vanType = location.state?.typeOfVan || 'all'
-
-  useEffect(() => {
-    const fetchVanData = async () => {
-      const req = await axios.get(`/api/vans/${id}`);
-      setVan(req.data.vans);
-    };
-    fetchVanData();
-  }, []);
-
-
-
-
-
+const van = useLoaderData()
 
 
   return (
     <div className="mx-[auto] h-fit w-[600px] bg-chinese-black font-inter text-black">
-      {van ? (
+     
         <div className="bg-body-cream px-9 pb-16">
           <Link
             to={`..?${prevLinkPath}`}
@@ -70,11 +62,7 @@ const vanType = location.state?.typeOfVan || 'all'
             </Link>
           </div>
         </div>
-      ) : (
-        <div className="flex h-[450px] w-full items-center justify-center bg-body-cream px-9 text-[40px] font-bold text-chinese-black">
-          <h1>Loading...</h1>
-        </div>
-      )}
+      
     </div>
   );
 }

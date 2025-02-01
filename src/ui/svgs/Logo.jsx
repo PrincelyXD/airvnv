@@ -1,7 +1,7 @@
 function Logo() {
   return (
     <svg
-      width="1291"
+      width="1111"
       height="186"
       viewBox="0 0 1291 186"
       fill="none"
