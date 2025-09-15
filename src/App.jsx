@@ -21,7 +21,7 @@ import Pricing from "./pages/Host/EditVanDetailOutlets/Pricing";
 import Photos from "./pages/Host/EditVanDetailOutlets/Photos";
 import PageNotFound from "./pages/404/PageNotFound.jsx";
 import Error from "./components/Error.jsx";
-import Login from "./pages/auth/Login.jsx";
+import Login, {loginFormAction } from "./pages/auth/Login.jsx";
 import { requireAuth } from "./utils.jsx";
 import ErrorBoundary from "./pages/Host/errors/ErrorBoundary.jsx";
 
@@ -33,7 +33,10 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="login" element={<Login />} />
+        <Route 
+          path="login"
+          action= {loginFormAction} 
+          element={<Login />} />
 
         <Route
           path="vans"
